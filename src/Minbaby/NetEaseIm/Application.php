@@ -41,7 +41,6 @@ class Application
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
-        Logger::getInstance()->setLogPath(getenv('LOG_PATH'))->setDefaultHandler();
     }
 
     /**

@@ -19,11 +19,11 @@ class Logger
 
     public $logPath;
 
-    private $streamHandler;
+    private $name;
 
     private function __construct($name)
     {
-        $this->logger = new MonoLogger($name);
+        $this->name = $name;
     }
 
     public static function getInstance($name = 'NetEaseIm')
@@ -42,6 +42,11 @@ class Logger
 
     public function getLogger()
     {
+        if (empty($this->logger)) {
+            $this->logger = new MonoLogger($this->name);
+            $this->setDefaultHandler();
+        }
+
         return $this->logger;
     }
 
@@ -71,6 +76,16 @@ class Logger
         foreach ($handlers as $handler) {
             $handler->setLevel(MonoLogger::toMonologLevel($level));
         }
+        return $this;
+    }
+
+    /**
+     * @param MonoLogger $logger
+     * @return $this
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
         return $this;
     }
 }
