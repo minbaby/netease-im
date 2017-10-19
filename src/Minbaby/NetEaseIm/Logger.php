@@ -1,7 +1,8 @@
 <?php
 
-namespace Minbaby\NeteaseIm;
+namespace  Minbaby\NetEaseIm;
 
+use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger as MonoLogger;
 use Monolog\Handler\StreamHandler;
 
@@ -72,6 +73,7 @@ class Logger
 
     public function setLogLevel($level)
     {
+        /** @var AbstractProcessingHandler[] $handlers */
         $handlers = $this->getLogger()->getHandlers();
         foreach ($handlers as $handler) {
             $handler->setLevel(MonoLogger::toMonologLevel($level));

@@ -1,10 +1,10 @@
 <?php
 
-namespace Minbaby\NeteaseIm\Manager;
+namespace  Minbaby\NetEaseIm\Manager;
 
-use Minbaby\NeteaseIm\AbstractManager;
-use Minbaby\NeteaseIm\Exception\NetEaseImException;
-use Minbaby\NeteaseIm\Utils;
+use  Minbaby\NetEaseIm\AbstractManager;
+use  Minbaby\NetEaseIm\Exception\NetEaseImException;
+use  Minbaby\NetEaseIm\Utils;
 
 class ChatRoomManager extends AbstractManager
 {

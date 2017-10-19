@@ -1,5 +1,5 @@
 <?php
-namespace Minbaby\NeteaseIm;
+namespace  Minbaby\NetEaseIm;
 
 use ArrayAccess;
 

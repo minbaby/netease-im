@@ -13,7 +13,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Minbaby\\NetEaseIm\\": "src/Minbaby/NetEaseIm/"
+      "Minbaby\\NetEaseIm\\": "src/Minbaby/NetEaseIm"
     },
     "files": [
       "src/helper.php",

@@ -1,5 +1,5 @@
 <?php
-namespace Minbaby\NeteaseIm\Exception;
+namespace  Minbaby\NetEaseIm\Exception;
 
 class NetEaseImException extends \Exception
 {

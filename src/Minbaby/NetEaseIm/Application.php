@@ -1,6 +1,6 @@
 <?php
 
-namespace Minbaby\NeteaseIm;
+namespace  Minbaby\NetEaseIm;
 
 use Minbaby\NetEaseIm\Manager\ChatRoomManager;
 use Minbaby\NetEaseIm\Manager\HistoryManager;
@@ -55,6 +55,11 @@ class Application
             static::$instance = new Application($appKey, $appSecret);
         }
         return static::$instance;
+    }
+
+    public static function setDefaultLog()
+    {
+        Logger::getInstance()->setLogPath(getenv('LOG_PATH'))->setDefaultHandler();
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Minbaby\NeteaseIm\Manager;
+namespace  Minbaby\NetEaseIm\Manager;
 
 use NetEaseIm\AbstractManager;
 

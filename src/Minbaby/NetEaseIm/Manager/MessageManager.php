@@ -1,8 +1,8 @@
 <?php
 
-namespace Minbaby\NeteaseIm\Manager;
+namespace  Minbaby\NetEaseIm\Manager;
 
-use Minbaby\NeteaseIm\AbstractManager;
+use  Minbaby\NetEaseIm\AbstractManager;
 use Minbaby\NetEaseIm\Utils;
 
 /**

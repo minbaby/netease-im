@@ -1,6 +1,6 @@
 <?php
 
-namespace Minbaby\NeteaseIm;
+namespace  Minbaby\NetEaseIm;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
