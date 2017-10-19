@@ -1,5 +1,6 @@
 <?php
-namespace  Minbaby\NetEaseIm;
+
+namespace Minbaby\NetEaseIm;
 
 use ArrayAccess;
 
@@ -14,7 +15,7 @@ class Utils
      */
     public static function arrayGet($array, $key, $default = null)
     {
-        if (!static::isArray($array)) {
+        if ( ! static::isArray($array)) {
             return $default;
         }
 
@@ -47,19 +48,21 @@ class Utils
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
         }
+
         return array_key_exists($key, $array);
     }
 
     public static function boolConvertToString($bool)
     {
-        return $bool ===  true ? 'true' : 'false';
+        return true === $bool ? 'true' : 'false';
     }
 
     public static function arrCheckAndPush($arr, $key, $value)
     {
-        if (!empty($value)) {
+        if ( ! empty($value)) {
             return array_merge($arr, [$key => $value]);
         }
+
         return $arr;
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace  Minbaby\NetEaseIm\Manager;
+namespace Minbaby\NetEaseIm\Manager;
 
 use NetEaseIm\AbstractManager;
 
 class HistoryManager extends AbstractManager
 {
-
     const ASC = 1;
     const DESC = 2;
 
@@ -15,7 +14,7 @@ class HistoryManager extends AbstractManager
     private $nimserver_history_query_user_event = '/nimserver/history/queryUserEvent.action';
     private $nimserver_history_delete_media_file = '/nimserver/history/deleteMediaFile.action';
 
-    public function querySessionMessage($from, $to, $beginTime, $endTime, $limit, $reverse = HistoryManager::DESC)
+    public function querySessionMessage($from, $to, $beginTime, $endTime, $limit, $reverse = self::DESC)
     {
         return $this->query(
             $this->nimserver_history_query_session_msg,
@@ -28,7 +27,7 @@ class HistoryManager extends AbstractManager
         );
     }
 
-    public function queryTeamMsg($from, $to, $beginTime, $endTime, $limit, $reverse = HistoryManager::DESC)
+    public function queryTeamMsg($from, $to, $beginTime, $endTime, $limit, $reverse = self::DESC)
     {
         return $this->query(
             $this->nimserver_history_query_team_msg,
@@ -52,7 +51,7 @@ class HistoryManager extends AbstractManager
      *
      * @return array
      */
-    private function query($url, $from, $to, $beginTime, $endTime, $limit, $reverse = HistoryManager::DESC)
+    private function query($url, $from, $to, $beginTime, $endTime, $limit, $reverse = self::DESC)
     {
         $data = [
             'from'      => $from,
@@ -64,6 +63,7 @@ class HistoryManager extends AbstractManager
         ];
         $ret = $this->post($url, $data);
         unset($ret['code']);
+
         return $ret;
     }
 
@@ -76,17 +76,18 @@ class HistoryManager extends AbstractManager
      *
      * @return mixed
      */
-    public function queryUserEvent($accId, $beginTime, $endTime, $limit, $reverse = HistoryManager::DESC)
+    public function queryUserEvent($accId, $beginTime, $endTime, $limit, $reverse = self::DESC)
     {
         $data = [
             'accid'      => $accId,
-            'begintime' => $beginTime,
-            'endtime'   => $endTime,
-            'limit'     => $limit,
-            'reverse'   => $reverse
+            'begintime'  => $beginTime,
+            'endtime'    => $endTime,
+            'limit'      => $limit,
+            'reverse'    => $reverse
         ];
         $ret = $this->post($this->nimserver_history_query_user_event, $data);
         unset($ret['code']);
+
         return $ret;
     }
 
@@ -101,6 +102,7 @@ class HistoryManager extends AbstractManager
             'channelid' => $channelId,
         ];
         $this->post($this->nimserver_history_delete_media_file, $data);
+
         return true;
     }
 }

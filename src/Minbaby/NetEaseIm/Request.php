@@ -1,6 +1,6 @@
 <?php
 
-namespace  Minbaby\NetEaseIm;
+namespace Minbaby\NetEaseIm;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
@@ -35,24 +35,25 @@ class Request
     public function post($url, array $data)
     {
         $options = [
-            RequestOptions::TIMEOUT => 3,
+            RequestOptions::TIMEOUT         => 3,
             RequestOptions::CONNECT_TIMEOUT => 3,
-            RequestOptions::DEBUG => $this->debug,
-            RequestOptions::HEADERS => $this->getHeaders(),
-            RequestOptions::BODY => http_build_query($data),
+            RequestOptions::DEBUG           => $this->debug,
+            RequestOptions::HEADERS         => $this->getHeaders(),
+            RequestOptions::BODY            => http_build_query($data),
         ];
 
-        Logger::getInstance()->getLogger()->info(sprintf("%s::Request", __METHOD__), [
+        Logger::getInstance()->getLogger()->info(sprintf('%s::Request', __METHOD__), [
             'url' => $this->baseUrl . $url, 'options' => $options]);
 
         $content = $this->getClient()->post($url, $options)->getBody()->getContents();
 
-        Logger::getInstance()->getLogger()->info(sprintf("%s::Response", __METHOD__), ['response' => $content]);
+        Logger::getInstance()->getLogger()->info(sprintf('%s::Response', __METHOD__), ['response' => $content]);
 
         $json = json_decode($content, true);
         if (empty($json)) {
-            throw new NetEaseImException("json decode err: " . $content);
+            throw new NetEaseImException('json decode err: ' . $content);
         }
+
         return $json;
     }
 
@@ -64,6 +65,7 @@ class Request
         if (empty($this->client)) {
             $this->client = new Client(['base_uri' => $this->baseUrl]);
         }
+
         return $this->client;
     }
 
@@ -71,10 +73,11 @@ class Request
     {
         $nonce = $this->buildNonce();
         $curTime = strval(time());
+
         return [
-            'AppKey' => $this->appKey,                              //开发者平台分配的AppKey
-            'Nonce'  => $nonce,                                     //随机数（最大长度128个字符）
-            'CurTime' => $curTime,                                  //当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
+            'AppKey'   => $this->appKey,                              //开发者平台分配的AppKey
+            'Nonce'    => $nonce,                                     //随机数（最大长度128个字符）
+            'CurTime'  => $curTime,                                  //当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
             'CheckSum' => $this->buildCheckSum($nonce, $curTime),   //SHA1(AppSecret + Nonce + CurTime),
                                                                     //三个参数拼接的字符串，进行SHA1哈希计算，
                                                                     //转化成16进制字符(String，小写)
@@ -87,8 +90,9 @@ class Request
         $hexDigits = '0123456789abcdef';
         $ret = '';
         for ($i = 0; $i < 128; $i++) {            //随机字符串最大128个字符，也可以小于该数
-            $ret .= $hexDigits[rand(0, 15)];
+            $ret .= $hexDigits[mt_rand(0, 15)];
         }
+
         return $ret;
     }
 
@@ -98,7 +102,7 @@ class Request
     }
 
     /**
-     * @param boolean $debug
+     * @param bool $debug
      */
     public function setDebug($debug)
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace  Minbaby\NetEaseIm;
+namespace Minbaby\NetEaseIm;
 
-use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger as MonoLogger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Handler\AbstractProcessingHandler;
 
 class Logger
 {
@@ -30,14 +30,16 @@ class Logger
     public static function getInstance($name = 'NetEaseIm')
     {
         if (empty(static::$instance)) {
-            static::$instance = new Logger($name);
+            static::$instance = new self($name);
         }
+
         return static::$instance;
     }
 
     public function setLogPath($path)
     {
         $this->logPath = $path;
+
         return $this;
     }
 
@@ -56,18 +58,21 @@ class Logger
         if (empty($this->logPath)) {
             $this->logPath = '/tmp';
         }
+
         return $this->logPath;
     }
 
     public function setHandler($handlers)
     {
         $this->getLogger()->setHandlers($handlers);
+
         return $this;
     }
 
     public function setDefaultHandler()
     {
         $this->setHandler([new StreamHandler($this->getLogPath() . '/NetEaseIm.log')]);
+
         return $this;
     }
 
@@ -78,16 +83,19 @@ class Logger
         foreach ($handlers as $handler) {
             $handler->setLevel(MonoLogger::toMonologLevel($level));
         }
+
         return $this;
     }
 
     /**
      * @param MonoLogger $logger
+     *
      * @return $this
      */
     public function setLogger($logger)
     {
         $this->logger = $logger;
+
         return $this;
     }
 }

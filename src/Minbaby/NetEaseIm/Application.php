@@ -1,19 +1,18 @@
 <?php
 
-namespace  Minbaby\NetEaseIm;
+namespace Minbaby\NetEaseIm;
 
-use Minbaby\NetEaseIm\Manager\ChatRoomManager;
+use Minbaby\NetEaseIm\Manager\SmsManager;
+use Minbaby\NetEaseIm\Manager\UserManager;
 use Minbaby\NetEaseIm\Manager\HistoryManager;
 use Minbaby\NetEaseIm\Manager\MessageManager;
-use Minbaby\NetEaseIm\Manager\SmsManager;
+use Minbaby\NetEaseIm\Manager\ChatRoomManager;
 use Minbaby\NetEaseIm\Manager\UserGroupManager;
-use Minbaby\NetEaseIm\Manager\UserManager;
 
 /**
  * http://dev.netease.im/docs?doc=server
  *
  * Class Application
- * @package NetEaseIm
  *
  * @method UserManager getUserManager()
  * @method MessageManager getMessageManager()
@@ -36,7 +35,6 @@ class Application
 
     private $https_api_netease_im = 'https://api.netease.im';
 
-
     private function __construct($appKey, $appSecret)
     {
         $this->appKey = $appKey;
@@ -52,8 +50,9 @@ class Application
     public static function getInstance($appKey, $appSecret)
     {
         if (empty(static::$instance)) {
-            static::$instance = new Application($appKey, $appSecret);
+            static::$instance = new self($appKey, $appSecret);
         }
+
         return static::$instance;
     }
 
@@ -70,12 +69,13 @@ class Application
      */
     public function __call($name, $arguments)
     {
-        if (!isset($this->mangers[$name])) {
-            $className =  '\Minbaby\NetEaseIm\Manager\\' . substr($name, 3, strlen($name));
+        if ( ! isset($this->mangers[$name])) {
+            $className = '\Minbaby\NetEaseIm\Manager\\' . substr($name, 3, strlen($name));
             $this->mangers[$name] = new $className($this->appKey, $this->appSecret, $this->https_api_netease_im);
         }
 
         $this->mangers[$name]->setDebug($this->debug);
+
         return $this->mangers[$name];
     }
 
@@ -88,6 +88,7 @@ class Application
     {
         $this->debug = $debug;
         Logger::getInstance()->setLogLevel($this->debug ? 'DEBUG' : 'INFO');
+
         return $this;
     }
 }

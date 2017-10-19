@@ -1,5 +1,6 @@
 <?php
-namespace  Minbaby\NetEaseIm;
+
+namespace Minbaby\NetEaseIm;
 
 use Minbaby\NetEaseIm\Exception\NetEaseImException;
 
@@ -35,6 +36,7 @@ abstract class AbstractManager
     public function setDebug($debug)
     {
         $this->debug = $debug;
+
         return $this;
     }
 
@@ -43,9 +45,10 @@ abstract class AbstractManager
         $request = new Request($this->appKey, $this->appSecret, $this->baseUrl);
         $request->setDebug($this->debug);
         $json = $request->post($url, $data);
-        if ($json['code'] != '200') {
+        if ('200' != $json['code']) {
             throw new NetEaseImException($json['desc'], $json['code']);
         }
+
         return $json;
     }
 }
