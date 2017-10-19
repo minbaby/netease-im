@@ -1,0 +1,23 @@
+{
+  "name": "minbaby/netease-im",
+  "authors": [
+    {
+      "name": "minbaby.zhang",
+      "email": "zhangshaomin_1990@126.com"
+    }
+  ],
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "~6.0",
+    "monolog/monolog": "^1.21"
+  },
+  "autoload": {
+    "psr-4": {
+      "Minbaby\\NetEaseIm\\": "src/NetEaseIm/"
+    },
+    "files": [
+      "src/helper.php",
+      "src/const.php"
+    ]
+  }
+}

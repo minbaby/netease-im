@@ -1,0 +1,5 @@
+.idea
+.DS_Storec
+/vendor/
+composer.lock
+/test
