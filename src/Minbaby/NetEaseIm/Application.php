@@ -74,7 +74,6 @@ class Application
             $className =  '\Minbaby\NetEaseIm\Manager\\' . substr($name, 3, strlen($name));
             $this->mangers[$name] = new $className($this->appKey, $this->appSecret, $this->https_api_netease_im);
         }
-//        Logger::getInstance()->getLogger()->debug("call function:" . $name);
 
         $this->mangers[$name]->setDebug($this->debug);
         return $this->mangers[$name];
