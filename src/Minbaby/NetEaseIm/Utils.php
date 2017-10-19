@@ -15,7 +15,7 @@ class Utils
      */
     public static function arrayGet($array, $key, $default = null)
     {
-        if ( ! static::isArray($array)) {
+        if (! static::isArray($array)) {
             return $default;
         }
 
@@ -59,7 +59,7 @@ class Utils
 
     public static function arrCheckAndPush($arr, $key, $value)
     {
-        if ( ! empty($value)) {
+        if (! empty($value)) {
             return array_merge($arr, [$key => $value]);
         }
 

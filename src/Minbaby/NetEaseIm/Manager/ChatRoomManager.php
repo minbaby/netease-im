@@ -165,7 +165,7 @@ class ChatRoomManager extends AbstractManager
             'optvalue' => Utils::boolConvertToString($optValue),
         ];
 
-        if ( ! in_array($opt, [
+        if (! in_array($opt, [
             static::MEMBER_ROLE_OPT_ADMIN,
             static::MEMBER_ROLE_OPT_CUSTOM,
             static::MEMBER_ROLE_OPT_BLACK_LIST,

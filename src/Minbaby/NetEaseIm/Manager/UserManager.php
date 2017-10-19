@@ -181,7 +181,7 @@ class UserManager extends AbstractManager
         $data = ['accid' => $accId];
         $params = ['name', 'icon', 'sign', 'email', 'birth', 'mobile', 'gender', 'ex'];
         foreach ($params as $param) {
-            if ( ! is_null($$param)) {
+            if (! is_null($$param)) {
                 $data[$param] = $$param;
             }
         }
@@ -238,7 +238,7 @@ class UserManager extends AbstractManager
             static::ADD_FRIEND_TYPE_REJECT
         ];
 
-        if ( ! in_array($type, $support)) {
+        if (! in_array($type, $support)) {
             throw new NetEaseImException('type must in:' . implode(', ', $support));
         }
         $data = ['accid' => $accId, 'faccid' => $fAccId, 'type' => $type, 'msg' => $msg];
@@ -303,7 +303,7 @@ class UserManager extends AbstractManager
      */
     public function setSpecialRelation($accId, $targetAcc, $relationType, $value)
     {
-        if ( ! in_array($relationType, [static::SPECIAL_RELATION_TYPE_BLACK_LIST, static::SPECIAL_RELATION_TYPE_MUTE])) {
+        if (! in_array($relationType, [static::SPECIAL_RELATION_TYPE_BLACK_LIST, static::SPECIAL_RELATION_TYPE_MUTE])) {
             throw new NetEaseImException('check relationType');
         }
 

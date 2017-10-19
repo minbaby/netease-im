@@ -69,7 +69,7 @@ class Application
      */
     public function __call($name, $arguments)
     {
-        if ( ! isset($this->mangers[$name])) {
+        if (! isset($this->mangers[$name])) {
             $className = '\Minbaby\NetEaseIm\Manager\\' . substr($name, 3, strlen($name));
             $this->mangers[$name] = new $className($this->appKey, $this->appSecret, $this->https_api_netease_im);
         }
