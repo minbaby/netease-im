@@ -109,12 +109,12 @@ class UserGroupManager extends AbstractManager
      * @param string $msg          邀请发送的文字，最大长度150字符
      * @param string $announcement 群公告，最大长度1024字符
      * @param string $intro        群描述，最大长度512字符
-     * @param int $mAgree       管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。其它会返回414
-     * @param int $joinMode     群建好后，sdk操作时，0不用验证，1需要验证,2不允许任何人加入。其它返回414
-     * @param int $beInviteMode 被邀请人同意方式，0-需要同意(默认),1-不需要同意。其它返回414
-     * @param int $inviteMode   谁可以邀请他人入群，0-管理员(默认),1-所有人。其它返回414
-     * @param int $uptInfoMode  谁可以修改群资料，0-管理员(默认),1-所有人。其它返回414
-     * @param int $upCustomMode 谁可以更新群自定义属性，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $mAgree       管理后台建群时，0不需要被邀请人同意加入群，1需要被邀请人同意才可以加入群。其它会返回414
+     * @param int    $joinMode     群建好后，sdk操作时，0不用验证，1需要验证,2不允许任何人加入。其它返回414
+     * @param int    $beInviteMode 被邀请人同意方式，0-需要同意(默认),1-不需要同意。其它返回414
+     * @param int    $inviteMode   谁可以邀请他人入群，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $uptInfoMode  谁可以修改群资料，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $upCustomMode 谁可以更新群自定义属性，0-管理员(默认),1-所有人。其它返回414
      *
      * @return array
      */
@@ -206,7 +206,7 @@ class UserGroupManager extends AbstractManager
      * 群信息与成员列表查询
      *
      * @param array $tids 群id列表，如["3083","3084"]
-     * @param int   $ope 1表示带上群成员列表，0表示不带群成员列表，只返回群信息
+     * @param int   $ope  1表示带上群成员列表，0表示不带群成员列表，只返回群信息
      *
      * @return array
      */
@@ -230,11 +230,11 @@ class UserGroupManager extends AbstractManager
      * @param string $custom       自定义高级群扩展属性，第三方可以跟据此属性自定义扩展自己的群属性。（建议为json）,最大长度1024字符
      * @param string $announcement 群公告，最大长度1024字符
      * @param string $intro        群描述，最大长度512字符
-     * @param int $joinMode     群建好后，sdk操作时，0不用验证，1需要验证,2不允许任何人加入。其它返回414
-     * @param int $beInviteMode 被邀请人同意方式，0-需要同意(默认),1-不需要同意。其它返回414
-     * @param int $inviteMode   谁可以邀请他人入群，0-管理员(默认),1-所有人。其它返回414
-     * @param int $uptInfoMode  谁可以修改群资料，0-管理员(默认),1-所有人。其它返回414
-     * @param int $upCustomMode 谁可以更新群自定义属性，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $joinMode     群建好后，sdk操作时，0不用验证，1需要验证,2不允许任何人加入。其它返回414
+     * @param int    $beInviteMode 被邀请人同意方式，0-需要同意(默认),1-不需要同意。其它返回414
+     * @param int    $inviteMode   谁可以邀请他人入群，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $uptInfoMode  谁可以修改群资料，0-管理员(默认),1-所有人。其它返回414
+     * @param int    $upCustomMode 谁可以更新群自定义属性，0-管理员(默认),1-所有人。其它返回414
      *
      *  @return array
      */
@@ -322,7 +322,7 @@ class UserGroupManager extends AbstractManager
      * @param string $tid      网易云通信服务器产生，群唯一标识，创建群时会返回，最大长度128字符
      * @param string $owner    群主用户帐号，最大长度32字符
      * @param string $newOwner 新群主帐号，最大长度32字符
-     * @param int $leave    1:群主解除群主后离开群，2：群主解除群主后成为普通成员。其它414
+     * @param int    $leave    1:群主解除群主后离开群，2：群主解除群主后成为普通成员。其它414
      * @param mixed  $owner
      *
      *  @return array

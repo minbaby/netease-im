@@ -4,7 +4,7 @@ namespace Minbaby\NetEaseIm;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use NetEaseIm\Exception\NetEaseImException;
+use Minbaby\NetEaseIm\Exception\NetEaseImException;
 
 class Request
 {
@@ -32,6 +32,16 @@ class Request
         $this->baseUrl = $baseUrl;
     }
 
+    /**
+     * TODO: retry
+     *
+     * @param $url
+     * @param array $data
+     *
+     * @throws NetEaseImException
+     *
+     * @return array
+     */
     public function post($url, array $data)
     {
         $options = [
