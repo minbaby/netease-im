@@ -32,14 +32,13 @@ class Request
      * @param $appKey
      * @param $appSecret
      * @param $baseUrl
-     * @param SignCheck $signCheck
      */
-    public function __construct($appKey, $appSecret, $baseUrl, SignCheck $signCheck)
+    public function __construct($appKey, $appSecret, $baseUrl)
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
         $this->baseUrl = $baseUrl;
-        $this->signCheck = $signCheck;
+        $this->signCheck = new SignCheck();
     }
 
     /**
