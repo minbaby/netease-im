@@ -17,6 +17,14 @@ class Request
     private $baseUrl;
 
     private $client;
+    /**
+     * @var SignCheck
+     */
+    private $signCheck;
+
+    const MAX_RETRY_TIMES = 3;
+
+    const MAX_RETRY_WAITING_TIME = 500; // ms
 
     /**
      * AbstractManager constructor.
@@ -24,12 +32,14 @@ class Request
      * @param $appKey
      * @param $appSecret
      * @param $baseUrl
+     * @param SignCheck $signCheck
      */
-    public function __construct($appKey, $appSecret, $baseUrl)
+    public function __construct($appKey, $appSecret, $baseUrl, SignCheck $signCheck)
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
         $this->baseUrl = $baseUrl;
+        $this->signCheck = $signCheck;
     }
 
     /**
@@ -55,7 +65,11 @@ class Request
         Logger::getInstance()->getLogger()->info(sprintf('%s::Request', __METHOD__), [
             'url' => $this->baseUrl . $url, 'options' => $options]);
 
-        $content = $this->getClient()->post($url, $options)->getBody()->getContents();
+        $content = '';
+
+        retry(static::MAX_RETRY_TIMES, function () use (&$content, $url, $options) {
+            $content = $this->getClient()->post($url, $options)->getBody()->getContents();
+        }, static::MAX_RETRY_WAITING_TIME);
 
         Logger::getInstance()->getLogger()->info(sprintf('%s::Response', __METHOD__), ['response' => $content]);
 
@@ -81,34 +95,19 @@ class Request
 
     private function getHeaders()
     {
-        $nonce = $this->buildNonce();
+        $nonce = $this->signCheck->buildNonce();
         $curTime = strval(time());
+        $checkSum = $this->signCheck->buildCheckSum($this->appSecret, $nonce, $curTime);
 
         return [
-            'AppKey'   => $this->appKey,                              //开发者平台分配的AppKey
-            'Nonce'    => $nonce,                                     //随机数（最大长度128个字符）
-            'CurTime'  => $curTime,                                  //当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
-            'CheckSum' => $this->buildCheckSum($nonce, $curTime),   //SHA1(AppSecret + Nonce + CurTime),
-                                                                    //三个参数拼接的字符串，进行SHA1哈希计算，
-                                                                    //转化成16进制字符(String，小写)
+            'AppKey'   => $this->appKey, //开发者平台分配的AppKey
+            'Nonce'    => $nonce,        //随机数（最大长度128个字符）
+            'CurTime'  => $curTime,      //当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
+            'CheckSum' => $checkSum,     //SHA1(AppSecret + Nonce + CurTime),
+                                         //三个参数拼接的字符串，进行SHA1哈希计算，
+                                         //转化成16进制字符(String，小写)
             'Content-Type' => 'application/x-www-form-urlencoded;charset=utf-8',
         ];
-    }
-
-    private function buildNonce()
-    {
-        $hexDigits = '0123456789abcdef';
-        $ret = '';
-        for ($i = 0; $i < 128; $i++) {            //随机字符串最大128个字符，也可以小于该数
-            $ret .= $hexDigits[mt_rand(0, 15)];
-        }
-
-        return $ret;
-    }
-
-    private function buildCheckSum($nonce, $curTime)
-    {
-        return sha1($this->appSecret . $nonce . $curTime);
     }
 
     /**
