@@ -35,3 +35,19 @@ if (! function_exists('retry')) {
         }
     }
 }
+
+if (! function_exists('throwExceptionIfTrue')) {
+    /**
+     * @param $bool
+     * @param $msg
+     * @param int $code
+     *
+     * @throws \Minbaby\NetEaseIm\Exception\NetEaseImException
+     */
+    function throwExceptionIfTrue($bool, $msg, $code = 0)
+    {
+        if ($bool) {
+            throw new \Minbaby\NetEaseIm\Exception\NetEaseImException($msg, $code);
+        }
+    }
+}
