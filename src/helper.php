@@ -36,7 +36,7 @@ if (! function_exists('retry')) {
     }
 }
 
-if (! function_exists('throwExceptionIfTrue')) {
+if (! function_exists('throwNetEaseExceptionIfTrue')) {
     /**
      * @param $bool
      * @param $msg
@@ -44,7 +44,7 @@ if (! function_exists('throwExceptionIfTrue')) {
      *
      * @throws \Minbaby\NetEaseIm\Exception\NetEaseImException
      */
-    function throwExceptionIfTrue($bool, $msg, $code = 0)
+    function throwNetEaseExceptionIfTrue($bool, $msg, $code = 0)
     {
         if ($bool) {
             throw new \Minbaby\NetEaseIm\Exception\NetEaseImException($msg, $code);
